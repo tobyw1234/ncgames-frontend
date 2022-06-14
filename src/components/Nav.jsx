@@ -28,7 +28,6 @@ return (
       <select key={uuidv4()} onChange={(e) => setFilter(e.target.value)}>
         {categories.map((category) => (
           <option key={uuidv4()} value={category.slug}>
-            {console.log(filter)}
             {category.slug}
           </option>
         ))}

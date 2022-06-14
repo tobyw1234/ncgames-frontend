@@ -31,7 +31,7 @@ export default function Reviews(filter, setFilter) {
 
   return (
     <div>
-      {console.log(filter)}
+ 
       { 
         reviews.map((review) => {
           const dateCreated = dayjs(review.created_at)
@@ -45,7 +45,7 @@ export default function Reviews(filter, setFilter) {
               </li>
               <li key={uuidv4()}>By {review.owner}</li>
               <button>Details</button>
-              {console.log(category, review_id)}
+              
             </ul>
           );
         }) }

@@ -4,7 +4,7 @@ const gamesApi = axios.create({
   baseURL: "https://games-toby-w.herokuapp.com/api",
 });
 
-export const getReviews = (review_id, category) => {
+export const getReviews = (review_id) => {
  return gamesApi
   .get("/reviews", { params: { review_id } })
   .then(({ data }) => {
