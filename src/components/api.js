@@ -12,6 +12,19 @@ export const getReviews = (review_id, category) => {
    });
 }
 
+export const getSingleReview = (review_id, category) => {
+  return gamesApi
+
+    .get(`/reviews/${review_id}`, { params: { review_id, category } })
+    
+    .then(({ data }) => {
+      console.log(review_id, "api");
+      return data;
+    });
+};
+
+
+
 
 export const getCategories = () => {
   return gamesApi

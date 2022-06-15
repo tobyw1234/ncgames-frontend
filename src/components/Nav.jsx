@@ -1,14 +1,10 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import { getCategories, getReviews } from "./api";
 
-
-
-
-export default function Nav({ filter, setFilter, setReviews,reviews }) {
+export default function Nav({ filter, setFilter, setReviews, reviews, setIsLoading, isLoading }) {
   const [categories, setCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getCategories().then((categoriesFromApi) => {
@@ -23,28 +19,26 @@ export default function Nav({ filter, setFilter, setReviews,reviews }) {
         (review) => review.category === filter
       );
       setReviews(filteredReviews);
-   
-    } 
+    }
   }, [filter]);
 
   function resetReviews() {
     setIsLoading(true);
-    getReviews()
-      
-      .then((reviewsFromApi) => {
-        setReviews(reviewsFromApi);
-        setIsLoading(false);
-      })
-      getCategories().then((categoriesFromApi) => {
-        setCategories(categoriesFromApi);
-        navigate("/");
-        setIsLoading(false);
-      });
+    getReviews().then((reviewsFromApi) => {
+      setReviews(reviewsFromApi);
+      setIsLoading(false);
+    });
+    getCategories().then((categoriesFromApi) => {
+      setCategories(categoriesFromApi);
+      navigate("/");
+      setIsLoading(false);
+    });
   }
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
   function handleDropDown(e) {
     navigate(`category/${e.target.value}`);
-    setFilter(e.target.value)
+    setFilter(e.target.value);
     setCategories([e.target.value]);
   }
 
@@ -56,11 +50,9 @@ export default function Nav({ filter, setFilter, setReviews,reviews }) {
         Sort by Category
         <select key={uuidv4()} onChange={(e) => handleDropDown(e)}>
           {categories.map((category) => (
-           
-              <option key={uuidv4()} value={category.slug} onClick={()=>{navigate("/testpath")}}>
-                {category.slug}
-              </option>
-            
+            <option key={uuidv4()} value={category.slug}>
+              {category.slug}
+            </option>
           ))}
         </select>
       </label>
