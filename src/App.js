@@ -10,14 +10,19 @@ import Nav from "./components/Nav";
 
 
 function App() {
-  
+  const [filter, setFilter] = useState("");
+  const [reviews, setReviews] = useState([{}]);
 
-  
   return (
     <>
       <Header />
-      <Nav />
-      <Reviews  />
+      <Nav
+        filter={filter}
+        setFilter={setFilter}
+        setReviews={setReviews}
+        reviews={reviews}
+      />
+      <Reviews filter={filter} setReviews={setReviews} reviews={reviews} />
     </>
   );
 }

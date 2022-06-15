@@ -1,40 +1,65 @@
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
-import { getCategories } from "./api";
+import { getCategories, getReviews } from "./api";
 
 
 
 
-export default function Nav() {
+export default function Nav({ filter, setFilter, setReviews,reviews }) {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [filter, setFilter] = useState("");
 
-useEffect(() => {
-  getCategories().then((categoriesFromApi) => {
-    setCategories(categoriesFromApi);
-    setIsLoading(false);
-    
-  });
-}, []);
+  useEffect(() => {
+    getCategories().then((categoriesFromApi) => {
+      setCategories(categoriesFromApi);
+      setIsLoading(false);
+    });
+  }, []);
 
-if (isLoading) return <p>Loading</p>;
+  useEffect(() => {
+    if (filter) {
+      const filteredReviews = reviews.filter(
+        (review) => review.category === filter
+      );
+      setReviews(filteredReviews);
+   
+    } 
+  }, [filter]);
 
-return (
-  <>
-    <label>
-      Sort by Category
-      <select key={uuidv4()} onChange={(e) => setFilter(e.target.value)}>
-        {categories.map((category) => (
-          <option key={uuidv4()} value={category.slug}>
-            {category.slug}
-          </option>
-        ))}
-      </select>
-    </label>
+  function resetReviews() {
+    getReviews()
+      .then((reviewsFromApi) => {
+        setReviews(reviewsFromApi);
+        setIsLoading(false);
+      })
+      getCategories().then((categoriesFromApi) => {
+        setCategories(categoriesFromApi);
+        setIsLoading(false);
+      });
+  }
 
-    <button onClick={null}>Reset Filter</button>
-  </>
-);
+  function handleDropDown(e) {
+    setFilter(e.target.value)
+    setCategories([e.target.value]);
+  }
+
+  if (isLoading) return <p>Loading</p>;
+
+  return (
+    <>
+      <label>
+        Sort by Category
+        <select key={uuidv4()} onChange={(e) => handleDropDown(e)}>
+          {categories.map((category) => (
+            <option key={uuidv4()} value={category.slug}>
+              {category.slug}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <button onClick={(e) => resetReviews()}>reset filter</button>
+    </>
+  );
 }
