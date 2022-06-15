@@ -30,12 +30,14 @@ export default function Nav({ filter, setFilter, setReviews,reviews }) {
   function resetReviews() {
     setIsLoading(true);
     getReviews()
+      
       .then((reviewsFromApi) => {
         setReviews(reviewsFromApi);
         setIsLoading(false);
       })
       getCategories().then((categoriesFromApi) => {
         setCategories(categoriesFromApi);
+        navigate("/");
         setIsLoading(false);
       });
   }
