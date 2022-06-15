@@ -10,14 +10,43 @@ import Nav from "./components/Nav";
 
 
 function App() {
-  
+  const [filter, setFilter] = useState("");
+  const [reviews, setReviews] = useState([{}]);
 
-  
   return (
     <>
-      <Header />
-      <Nav />
-      <Reviews  />
+      <BrowserRouter>
+        <Header />
+        <Nav
+          filter={filter}
+          setFilter={setFilter}
+          setReviews={setReviews}
+          reviews={reviews}
+        />
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Reviews
+                filter={filter}
+                setReviews={setReviews}
+                reviews={reviews}
+              />
+            }
+          />
+
+          <Route path="category/:category" element={
+            <Reviews
+              filter={filter}
+              setReviews={setReviews}
+              reviews={reviews}
+            />
+          }
+          />
+
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
