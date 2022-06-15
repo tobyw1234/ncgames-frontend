@@ -30,7 +30,7 @@ export default function SingleReview({ isLoading, setIsLoading }) {
   if (isLoading) return <p>Loading</p>;
 
   return (
-    <div className="grid-container">
+    <div>
       <section id="singleReview">
         <h1>{review.reviews.title}</h1>
         <p>designer: {review.reviews.designer}</p>

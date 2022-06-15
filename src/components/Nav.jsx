@@ -45,10 +45,10 @@ export default function Nav({ filter, setFilter, setReviews, reviews, setIsLoadi
   if (isLoading) return <p>Loading</p>;
 
   return (
-    <>
+    <div id="nav">
       <label>
         Sort by Category
-        <select key={uuidv4()} onChange={(e) => handleDropDown(e)}>
+        <select id="dropDown" key={uuidv4()} onChange={(e) => handleDropDown(e)}>
           {categories.map((category) => (
             <option key={uuidv4()} value={category.slug}>
               {category.slug}
@@ -58,6 +58,6 @@ export default function Nav({ filter, setFilter, setReviews, reviews, setIsLoadi
       </label>
 
       <button onClick={(e) => resetReviews()}>reset filter</button>
-    </>
+    </div>
   );
 }
