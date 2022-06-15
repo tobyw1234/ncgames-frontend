@@ -18,7 +18,6 @@ export const getSingleReview = (review_id, category) => {
     .get(`/reviews/${review_id}`, { params: { review_id, category } })
     
     .then(({ data }) => {
-      console.log(review_id, "api");
       return data;
     });
 };

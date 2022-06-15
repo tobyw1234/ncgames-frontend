@@ -15,7 +15,7 @@ export default function SingleReview({ isLoading, setIsLoading }) {
  
  
 
-  console.log(review_id, "singlereview");
+ 
   useEffect(() => {
     getSingleReview(review_id).then((reviewFromApi) => {
       setReview(reviewFromApi);
@@ -48,7 +48,7 @@ export default function SingleReview({ isLoading, setIsLoading }) {
           <button>Downvote</button>
         </p>
       </section>
-      {console.log(review.reviews, "review_id")}
+      
     </div>
   );
 }
