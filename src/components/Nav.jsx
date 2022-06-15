@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import { getCategories, getReviews } from "./api";
@@ -28,6 +28,7 @@ export default function Nav({ filter, setFilter, setReviews,reviews }) {
   }, [filter]);
 
   function resetReviews() {
+    setIsLoading(true);
     getReviews()
       .then((reviewsFromApi) => {
         setReviews(reviewsFromApi);
@@ -38,8 +39,9 @@ export default function Nav({ filter, setFilter, setReviews,reviews }) {
         setIsLoading(false);
       });
   }
-
+  const navigate = useNavigate()
   function handleDropDown(e) {
+    navigate(`category/${e.target.value}`);
     setFilter(e.target.value)
     setCategories([e.target.value]);
   }
@@ -52,9 +54,11 @@ export default function Nav({ filter, setFilter, setReviews,reviews }) {
         Sort by Category
         <select key={uuidv4()} onChange={(e) => handleDropDown(e)}>
           {categories.map((category) => (
-            <option key={uuidv4()} value={category.slug}>
-              {category.slug}
-            </option>
+           
+              <option key={uuidv4()} value={category.slug} onClick={()=>{navigate("/testpath")}}>
+                {category.slug}
+              </option>
+            
           ))}
         </select>
       </label>

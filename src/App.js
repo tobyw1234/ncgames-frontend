@@ -15,14 +15,38 @@ function App() {
 
   return (
     <>
-      <Header />
-      <Nav
-        filter={filter}
-        setFilter={setFilter}
-        setReviews={setReviews}
-        reviews={reviews}
-      />
-      <Reviews filter={filter} setReviews={setReviews} reviews={reviews} />
+      <BrowserRouter>
+        <Header />
+        <Nav
+          filter={filter}
+          setFilter={setFilter}
+          setReviews={setReviews}
+          reviews={reviews}
+        />
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Reviews
+                filter={filter}
+                setReviews={setReviews}
+                reviews={reviews}
+              />
+            }
+          />
+
+          <Route path="category/:category" element={
+            <Reviews
+              filter={filter}
+              setReviews={setReviews}
+              reviews={reviews}
+            />
+          }
+          />
+
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
