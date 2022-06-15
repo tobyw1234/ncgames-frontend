@@ -1,3 +1,11 @@
+
+*{
+padding:0px;
+gap:0px;
+list-style: none;
+
+}
+
 #header{
   text-align: center;
   text-decoration: 
@@ -5,15 +13,21 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   border-style: solid;
-  justify-items: stretch;
-  padding: 1rem;
-  grid-gap:0.5rem
+  max-width: fit-content;
+  justify-content:  center;
+  margin: auto;
+  
+  
+  
 }
 
 .grid-item{
-  border-style: solid;
+  border:solid;
+  column-gap: 1000px;
+  text-align: center;
+  
   
 }
 
