@@ -1,31 +1,40 @@
 import { useState, useEffect } from "react";
-import { getSingleReview } from "./api";
+import { getSingleReview, patchVotes } from "./api";
 import { v4 as uuidv4 } from "uuid";
 import { useParams } from "react-router-dom";
 
-
 export default function SingleReview({ isLoading, setIsLoading }) {
+  const [votes, setVotes] = useState(0);
+  
 
-  const [review, setReview] = useState({
-    "reviews": {
-    }
-  });
+  const [review, setReview] = useState({ reviews: {} });
   const { review_id } = useParams();
 
- 
- 
 
- 
   useEffect(() => {
+    setIsLoading(true);
     getSingleReview(review_id).then((reviewFromApi) => {
-      setReview(reviewFromApi);
+      setReview(reviewFromApi)
+      
       setIsLoading(false);
     });
   }, [review_id]);
 
-  function upVote() {
-   return review.reviews.votes  += 1
+  useEffect(() => {setVotes(review.reviews.votes); },[review])
+    
+
+  
+  function upVote(review_id) {
+    console.log(votes);
+    setVotes((votes) => votes + 1)
+    patchVotes(review_id, votes);
   }
+
+   function downVote(review_id) {
+     console.log(votes);
+     setVotes((votes) => votes - 1);
+     patchVotes(review_id, votes);
+   }
 
   if (isLoading) return <p>Loading</p>;
 
@@ -39,16 +48,28 @@ export default function SingleReview({ isLoading, setIsLoading }) {
         <img
           id="singleReviewImg"
           alt="no"
+          title="test"
           src={`${review.reviews.review_img_url}`}
         />
         <p>{review.reviews.review_body}</p>
         <p>
-          Current votes: {review.reviews.votes}{" "}
-          <button onClick={() => { upVote() }}>Upvote</button>{" "}
-          <button>Downvote</button>
+          Current votes: {votes}
+          <button
+            onClick={() => {
+              upVote(review.reviews.review_id);
+            }}
+          >
+            Upvote
+          </button>{" "}
+          <button
+            onClick={() => {
+              downVote(review.reviews.review_id);
+            }}
+          >
+            Downvote
+          </button>
         </p>
       </section>
-      
     </div>
   );
 }
