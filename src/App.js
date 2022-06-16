@@ -4,7 +4,6 @@ import "./App.css";
 import React from "react";
 import Reviews from "./components/Reviews";
 import Header from "./components/Header";
-import Nav from "./components/Nav";
 import SingleReview from "./components/SingleReview";
 
 function App() {
@@ -16,19 +15,13 @@ function App() {
     <>
       <BrowserRouter>
         <Header />
-        <Nav
-          filter={filter}
-          setFilter={setFilter}
-          setReviews={setReviews}
-          reviews={reviews}
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-        />
+      
 
         <Routes>
           <Route
             path="/"
             element={
+              
               <Reviews
                 filter={filter}
                 setReviews={setReviews}
