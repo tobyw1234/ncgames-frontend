@@ -1,27 +1,22 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { getReviews } from "./api"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { v4 as uuidv4 } from "uuid";
 const dayjs = require("dayjs");
 
 
 
-export default function Reviews({ filter, setFilter, setReviews, reviews }) {
-  const [isLoading, setIsLoading] = useState(false);
-
+export default function Reviews({ filter, setFilter, setReviews, reviews, setIsLoading, isLoading }) {
   const { review_id, category } = useParams();
-  
+const navigate = useNavigate();
+
 
   useEffect(() => {
-    getReviews(review_id,category).then((reviewsFromApi) => {
+    getReviews(review_id, category).then((reviewsFromApi) => {
       setReviews(reviewsFromApi);
       setIsLoading(false);
     });
-  }, [review_id, category]);
-
-  
-
- 
+  }, [review_id, category, setIsLoading, isLoading, setReviews]);
 
   if (isLoading) return <p>Loading</p>;
 
@@ -38,6 +33,7 @@ export default function Reviews({ filter, setFilter, setReviews, reviews }) {
               {dateCreated.$D + "/" + dateCreated.$M + "/" + dateCreated.$y}
             </li>
             <li key={uuidv4()}>By {review.owner}</li>
+            <button onClick={() => { navigate(`/reviews/${review.review_id}`) }}>See More</button>
           </ul>
         );
       })}
