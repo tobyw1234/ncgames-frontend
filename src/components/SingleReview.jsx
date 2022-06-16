@@ -9,6 +9,7 @@ export default function SingleReview({ isLoading, setIsLoading }) {
   const [downVoteButton, setDownVoteButton] = useState(false);
   const [review, setReview] = useState({ reviews: {} });
   const { review_id } = useParams();
+  const [err,setErr] = useState(null)
 
 
   useEffect(() => {
@@ -27,15 +28,25 @@ export default function SingleReview({ isLoading, setIsLoading }) {
   function upVote(review_id) {
     console.log(votes);
     setVotes((votes) => votes + 1)
-    patchVotes(review_id, votes);
+    patchVotes(review_id, votes)
+      .catch((err) => {
+        setVotes((votes) => votes - 1);
+        setErr("Oops something went wrong!")
+      })
   }
 
    function downVote(review_id) {
      console.log(votes);
      setVotes((votes) => votes - 1);
-     patchVotes(review_id, votes);
+     patchVotes(review_id, votes)
+       .catch((err) => {
+         console.log(err)
+         setVotes((votes) => votes + 1);
+         setErr("Oops something went wrong!")
+           
+       })
    }
-
+  if (err) return <p>{err}</p>
   if (isLoading) return <p>Loading</p>;
 
   return (
