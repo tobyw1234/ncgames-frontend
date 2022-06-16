@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 
 export default function SingleReview({ isLoading, setIsLoading }) {
   const [votes, setVotes] = useState(0);
-  
-
+  const [upVoteButton, setUpVoteButton] = useState(false)
+  const [downVoteButton, setDownVoteButton] = useState(false);
   const [review, setReview] = useState({ reviews: {} });
   const { review_id } = useParams();
 
@@ -55,15 +55,21 @@ export default function SingleReview({ isLoading, setIsLoading }) {
         <p>
           Current votes: {votes}
           <button
+            disabled={upVoteButton}
             onClick={() => {
               upVote(review.reviews.review_id);
+              setUpVoteButton(true);
+              setDownVoteButton(false);
             }}
           >
             Upvote
           </button>{" "}
           <button
+            disabled={downVoteButton}
             onClick={() => {
               downVote(review.reviews.review_id);
+              setDownVoteButton(true);
+              setUpVoteButton(false);
             }}
           >
             Downvote
