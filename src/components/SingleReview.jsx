@@ -26,7 +26,6 @@ export default function SingleReview({ isLoading, setIsLoading }) {
 
   
   function upVote(review_id) {
-    console.log(votes);
     setVotes((votes) => votes + 1)
     patchVotes(review_id, votes)
       .catch((err) => {
@@ -36,11 +35,9 @@ export default function SingleReview({ isLoading, setIsLoading }) {
   }
 
    function downVote(review_id) {
-     console.log(votes);
      setVotes((votes) => votes - 1);
      patchVotes(review_id, votes)
        .catch((err) => {
-         console.log(err)
          setVotes((votes) => votes + 1);
          setErr("Oops something went wrong!")
            
