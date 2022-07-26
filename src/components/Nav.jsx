@@ -88,7 +88,7 @@ export default function Nav({ filter, setFilter, setReviews, reviews, setIsLoadi
       </label>
 
       <button id={uuidv4()} onClick={(e) => resetReviews()}>Home</button>
-    </>
+    </div>
 
   );
 }

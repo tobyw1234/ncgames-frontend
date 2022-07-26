@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { getReviews } from "./api"
 import { useParams, useNavigate } from "react-router-dom"
 import { v4 as uuidv4 } from "uuid";
-import Nav from "./Nav"
+
 
 const dayjs = require("dayjs");
 
@@ -16,7 +16,6 @@ const navigate = useNavigate();
   useEffect(() => {
     getReviews(review_id, category).then((reviewsFromApi) => {
       setReviews(reviewsFromApi);
-      setIsLoading(false);
     });
   }, [review_id, category, setIsLoading, isLoading, setReviews]);
 
@@ -24,7 +23,7 @@ const navigate = useNavigate();
 
   return (
     <>
-      <Nav />
+      
       <div className="grid-container">
         {reviews.map((review) => {
           const dateCreated = dayjs(review.created_at);
