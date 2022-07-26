@@ -59,6 +59,8 @@ function App() {
                 filter={filter}
                 setReviews={setReviews}
                 reviews={reviews}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
               />
             }
           />

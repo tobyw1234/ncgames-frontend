@@ -10,6 +10,7 @@ export default function Nav({ filter, setFilter, setReviews, reviews, setIsLoadi
 
   useEffect(() => {
     getCategories().then((categoriesFromApi) => {
+      setIsLoading(true);
       setCategories(categoriesFromApi);
       setIsLoading(false);
     });
@@ -40,6 +41,7 @@ export default function Nav({ filter, setFilter, setReviews, reviews, setIsLoadi
       setReviews(reviewsFromApi);
       setIsLoading(false);
     });
+
     getCategories().then((categoriesFromApi) => {
       setCategories(categoriesFromApi);
       navigate("/");
