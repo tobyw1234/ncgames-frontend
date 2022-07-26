@@ -1,11 +1,12 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import { getCategories, getReviews } from "./api";
 
-export default function Nav({ filter, setFilter, setReviews, reviews }) {
+
+export default function Nav({ filter, setFilter, setReviews, reviews, setIsLoading, isLoading }) {
+
   const [categories, setCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getCategories().then((categoriesFromApi) => {
@@ -21,6 +22,7 @@ export default function Nav({ filter, setFilter, setReviews, reviews }) {
         (review) => review.category === filter
       );
       setReviews(filteredReviews);
+
       const filteredCats = categories.filter(
         (category) => category.slug === filter
       );
@@ -28,12 +30,12 @@ export default function Nav({ filter, setFilter, setReviews, reviews }) {
 
       setCategories(filteredCats);
       setIsLoading(false);
+
     }
   }, [filter]);
 
   function resetReviews() {
     setIsLoading(true);
-    console.log(categories);
     getReviews().then((reviewsFromApi) => {
       setReviews(reviewsFromApi);
       setIsLoading(false);
@@ -47,6 +49,7 @@ export default function Nav({ filter, setFilter, setReviews, reviews }) {
 
   const navigate = useNavigate();
   function handleDropDown(e) {
+
     setFilter(e.target.value);
     if (e.target.value === "All Categories") {
       navigate("/")
@@ -59,22 +62,25 @@ export default function Nav({ filter, setFilter, setReviews, reviews }) {
     console.log([e.target.value]);
     console.log(categories);
     
+
   }
 
   if (isLoading) return <p>Loading</p>;
 
   return (
-    <>
+    <div id="nav">
       <label>
         Sort by Category
-        <select key={uuidv4()} onChange={(e) => handleDropDown(e)}>
+        <select id="dropDown" key={uuidv4()} onChange={(e) => handleDropDown(e)}>
           {categories.map((category) => (
+
             <option
               key={uuidv4()}
               value={category.slug}
               onClick={() => {
                 navigate();
               }}>
+
               {category.slug}
             </option>
           ))}
@@ -83,5 +89,6 @@ export default function Nav({ filter, setFilter, setReviews, reviews }) {
 
       <button id={uuidv4()} onClick={(e) => resetReviews()}>Home</button>
     </>
+
   );
 }

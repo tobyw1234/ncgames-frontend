@@ -1,19 +1,51 @@
+
+*{
+padding:0px;
+gap:0px;
+list-style: none;
+
+}
+
 #header{
   text-align: center;
-  text-decoration: 
+  
 }
 
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   border-style: solid;
-  justify-items: stretch;
-  padding: 1rem;
-  grid-gap:0.5rem
-}
-
-.grid-item{
-  border-style: solid;
+  max-width: fit-content;
+  justify-content:  center;
+  margin: auto;
+  
+  
   
 }
 
+.grid-item{
+  border:solid;
+  column-gap: 1000px;
+  text-align: center;
+  
+  
+}
+
+#singleReviewImg{
+  max-height:100vh;
+  max-width:100vw
+}
+
+#singleReview{
+  overflow: auto;
+  margin:1rem
+}
+
+#nav{
+  margin:1rem;
+   
+}
+
+#dropDown{
+  margin:1rem
+}
