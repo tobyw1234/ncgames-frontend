@@ -9,12 +9,15 @@ export default function Nav({ filter, setFilter, setReviews, reviews, setIsLoadi
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    getCategories().then((categoriesFromApi) => {
-      setIsLoading(true);
-      setCategories(categoriesFromApi);
-      setIsLoading(false);
-    });
-  }, []);
+    // getCategories().then((categoriesFromApi) => {
+    //   setIsLoading(true);
+    //   categoriesFromApi.unshift({ slug: "All Categories" });
+    //   setCategories(categoriesFromApi);
+      
+    //   setIsLoading(false);
+    resetReviews()
+    },[])
+  
 
   useEffect(() => {
     setIsLoading(true);
@@ -43,6 +46,7 @@ export default function Nav({ filter, setFilter, setReviews, reviews, setIsLoadi
     });
 
     getCategories().then((categoriesFromApi) => {
+      categoriesFromApi.unshift({ slug: "All Categories" });
       setCategories(categoriesFromApi);
       navigate("/");
       setIsLoading(false);
