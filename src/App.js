@@ -6,11 +6,13 @@ import Reviews from "./components/Reviews";
 import Header from "./components/Header";
 import SingleReview from "./components/SingleReview";
 import Nav from "./components/Nav";
+import CommentsCards from "./components/commentsCards";
 
 function App() {
   const [filter, setFilter] = useState("");
   const [reviews, setReviews] = useState([{}]);
   const [isLoading, setIsLoading] = useState(false);
+  const [comments, setComments] = useState({});
 
   return (
     <>
@@ -48,6 +50,8 @@ function App() {
                 reviews={reviews}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
+                comments={comments}
+                setComments={setComments}
               />
             }
           />
@@ -59,6 +63,18 @@ function App() {
                 filter={filter}
                 setReviews={setReviews}
                 reviews={reviews}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+              />
+            }
+          />
+
+          <Route
+            path=":review_id/comments"
+            element={
+              <CommentsCards
+                comments={comments}
+                setComments={setComments}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
               />
